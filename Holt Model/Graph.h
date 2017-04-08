@@ -9,10 +9,15 @@
 NAMESPACE_BEGIN
 
 template <typename T>
-class Graph<T>
+class Graph
 {
 	std::set<Node<T>*> nodes;
 public:
+	/**
+	 * Build the non-oriented graph with edges.
+	 * Key in multimap - starting node.
+	 * Value in multimap - ending node.
+	 */
 	explicit Graph(std::multimap<T, T> edges);
 
 	bool isHaveCycles() const;
@@ -21,7 +26,7 @@ public:
 template <typename T>
 Graph<T>::Graph(std::multimap<T, T> edges)
 {
-	//todo
+	//todo: build graph
 }
 
 template <typename T>
