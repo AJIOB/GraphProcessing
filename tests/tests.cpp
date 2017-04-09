@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Node.h"
+#include "../Holt Model/HoltModel.h"
 
 TEST(Node_tests, connection_to_itSelf )
 {
@@ -34,7 +34,25 @@ TEST(Node_tests, simple_cycle)
 	EXPECT_FALSE(node4.isInCycle(std::set<AJIOB::Node<T>*>(), std::set<AJIOB::Node<T>*>()));
 }
 
+TEST(Graph_tests, empty_graph)
+{
+	typedef std::string T;
+	std::multimap<T, T> edges;
 
+	AJIOB::Graph<T> graph(edges);
+	EXPECT_FALSE(graph.isHaveCycles());
+}
+
+TEST(Graph_tests, connection_to_itSelf)
+{
+	typedef int T;
+	std::multimap<T, T> edges;
+
+	edges.insert(std::make_pair(1, 1));
+
+	AJIOB::Graph<T> graph(edges);
+	EXPECT_TRUE(graph.isHaveCycles());
+}
 
 int main(int argc, char* argv[])
 {

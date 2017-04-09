@@ -22,6 +22,8 @@ public:
 	 * Will change currentCheckedNodes and noCycleElements variables (add or remove itself address)
 	 */
 	bool isInCycle(std::set<Node<T>*>& currentCheckedNodes, std::set<Node<T>*>& noCycleElements);
+
+	T getId() const;
 };
 
 template <typename T>
@@ -55,6 +57,12 @@ bool Node<T>::isInCycle(std::set<Node<T>*>& currentCheckedNodes, std::set<Node<T
 
 	noCycleElements.insert(this);
 	return false;
+}
+
+template <typename T>
+T Node<T>::getId() const
+{
+	return id;
 }
 
 NAMESPACE_END
