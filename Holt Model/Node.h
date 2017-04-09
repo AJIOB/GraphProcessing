@@ -56,6 +56,7 @@ bool Node<T>::isInCycle(std::set<Node<T>*>& currentCheckedNodes, std::set<Node<T
 	}
 
 	noCycleElements.insert(this);
+	currentCheckedNodes.erase(this);
 	return false;
 }
 
