@@ -16,6 +16,7 @@ public:
 	explicit Node(const T& id);
 
 	void addConnection(Node<T>* toAdd);
+	void removeConnection(Node<T>* toRemove);
 
 	/**
 	 * Function finds cycles by Holt method.
@@ -36,6 +37,12 @@ template <typename T>
 void Node<T>::addConnection(Node<T>* toAdd)
 {
 	connections.insert(toAdd);
+}
+
+template <typename T>
+void Node<T>::removeConnection(Node<T>* toRemove)
+{
+	connections.erase(toRemove);
 }
 
 template <typename T>

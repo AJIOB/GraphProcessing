@@ -15,15 +15,24 @@ class Graph
 	std::set<Node<T>*> nodes;
 
 	Node<T>* findOrCreateNode(const T& nodeID);
+
+	Graph(const Graph& other) {}
+	Graph& operator=(const Graph& other) { return *this; }
+
 public:
 	/**
 	 * Build the non-oriented graph with edges.
 	 * Key in multimap - starting node.
 	 * Value in multimap - ending node.
 	 */
-	explicit Graph(const std::multimap<T, T>& edges);
+	explicit Graph(const std::multimap<T, T>& edges = std::multimap<T, T>());
+
+	~Graph();
 
 	bool isHaveCycles() const;
+
+	void addEdge(const T& begin, const T& end);
+	void removeEdge(const T& begin, const T& end);
 };
 
 
@@ -55,6 +64,15 @@ Graph<T>::Graph(const std::multimap<T, T>& edges)
 }
 
 template <typename T>
+Graph<T>::~Graph()
+{
+	for (auto it = nodes.begin(); it != nodes.end(); ++it)
+	{
+		delete *it;
+	}
+}
+
+template <typename T>
 bool Graph<T>::isHaveCycles() const
 {
 	std::set<Node<T>*> nodesToCheck = nodes;
@@ -76,6 +94,18 @@ bool Graph<T>::isHaveCycles() const
 	}
 
 	return false;
+}
+
+template <typename T>
+void Graph<T>::addEdge(const T& begin, const T& end)
+{
+	findOrCreateNode(begin)->addConnection(findOrCreateNode(end));
+}
+
+template <typename T>
+void Graph<T>::removeEdge(const T& begin, const T& end)
+{
+	findOrCreateNode(begin)->removeConnection(findOrCreateNode(end));
 }
 
 NAMESPACE_END
