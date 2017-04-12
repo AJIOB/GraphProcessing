@@ -25,6 +25,7 @@ public:
 	bool isInCycle(std::set<Node<T>*>& currentCheckedNodes, std::set<Node<T>*>& noCycleElements);
 
 	T getId() const;
+	std::set<T> getConnectedIDs() const;
 };
 
 template <typename T>
@@ -71,6 +72,18 @@ template <typename T>
 T Node<T>::getId() const
 {
 	return id;
+}
+
+template <typename T>
+std::set<T> Node<T>::getConnectedIDs() const
+{
+	std::set<T> res;
+	for (auto node : connections)
+	{
+		res.insert(node->id);
+	}
+
+	return res;
 }
 
 NAMESPACE_END

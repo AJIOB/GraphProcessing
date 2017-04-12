@@ -16,9 +16,6 @@ class Graph
 
 	Node<T>* findOrCreateNode(const T& nodeID);
 
-	Graph(const Graph& other) {}
-	Graph& operator=(const Graph& other) { return *this; }
-
 public:
 	/**
 	 * Build the non-oriented graph with edges.
@@ -26,8 +23,10 @@ public:
 	 * Value in multimap - ending node.
 	 */
 	explicit Graph(const std::multimap<T, T>& edges = std::multimap<T, T>());
-
+	Graph(const Graph& other);
 	~Graph();
+
+	Graph& operator=(const Graph& other);
 
 	bool isHaveCycles() const;
 
@@ -64,12 +63,50 @@ Graph<T>::Graph(const std::multimap<T, T>& edges)
 }
 
 template <typename T>
+Graph<T>::Graph(const Graph& other)
+{
+	for (auto node : other.nodes)
+	{
+		auto connectedNodeIDs = node->getConnectedIDs();
+		for (auto rightNodeID : connectedNodeIDs)
+		{
+			findOrCreateNode(node.getID())->addConnection(findOrCreateNode(rightNodeID));
+		}
+	}
+}
+
+template <typename T>
 Graph<T>::~Graph()
 {
 	for (auto it = nodes.begin(); it != nodes.end(); ++it)
 	{
 		delete *it;
 	}
+}
+
+template <typename T>
+Graph<T>& Graph<T>::operator=(const Graph& other)
+{
+	if (&other == this)
+	{
+		return *this;
+	}
+
+	for (auto node : nodes)
+	{
+		delete node;
+	}
+
+	for (auto node : other.nodes)
+	{
+		auto connectedNodeIDs = node->getConnectedIDs();
+		for (auto rightNodeID : connectedNodeIDs)
+		{
+			findOrCreateNode(node.getID())->addConnection(findOrCreateNode(rightNodeID));
+		}
+	}
+
+	return *this;
 }
 
 template <typename T>
