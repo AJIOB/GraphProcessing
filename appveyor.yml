@@ -1,6 +1,6 @@
 version: 1.0.{build}
 before_build:
-  -ps: Install-Package googletest -Version 1.8.0
+  -ps: Install-Package gtest -Version 1.7.0
 build:
   project: Holt Model.sln
   verbosity: minimal
