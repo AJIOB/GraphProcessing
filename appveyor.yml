@@ -1,6 +1,6 @@
-version: 1.0.{build}
+version: {build}
 before_build:
-  -ps: Install-Package gtest -Version 1.7.0
+  - nuget restore
 build:
   project: Holt Model.sln
   verbosity: minimal
