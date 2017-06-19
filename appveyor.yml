@@ -1,6 +1,6 @@
 version: 1.0.{build}
 before_build:
-  -nuget Install-Package googletest -Version 1.8.0
+  - nuget Install-Package googletest -Version 1.8.0
 build:
   project: Holt Model.sln
   verbosity: minimal
