@@ -1,0 +1,6 @@
+version: '{build}'
+before_build:
+  - nuget restore
+build:
+  project: Holt Model.sln
+  verbosity: minimal
